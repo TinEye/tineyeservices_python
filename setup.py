@@ -18,7 +18,7 @@ MatchEngine, MobileEngine and MulticolorEngine are general image matching engine
       include_package_data=True,
       zip_safe=True,
       install_requires=[
-          'requests'
+          'requests>=0.13'
       ],
       entry_points="""
       # -*- Entry points: -*-
