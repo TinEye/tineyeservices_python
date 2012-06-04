@@ -5,4 +5,3 @@ from image import Image
 from matchengine_request import MatchEngineRequest
 from mobileengine_request import MobileEngineRequest
 from multicolorengine_request import MulticolorEngineRequest
-from similarityengine_request import SimilarityEngineRequest
