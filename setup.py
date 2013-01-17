@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 import sys, os
 
-version = '1.0.1'
+version = '1.3'
 
 setup(name='tineyeservices',
       version=version,
@@ -18,7 +18,7 @@ MatchEngine, MobileEngine and MulticolorEngine are general image matching engine
       include_package_data=True,
       zip_safe=True,
       install_requires=[
-          'requests>=0.13'
+          'requests>=1.1.0'
       ],
       entry_points="""
       # -*- Entry points: -*-

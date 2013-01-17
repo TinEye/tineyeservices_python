@@ -10,7 +10,7 @@ class MatchEngineRequest(TinEyeServiceRequest):
     Adding an image using data:
 
         >>> from tineyeservices import MatchEngineRequest, Image
-        >>> api = MulticolorEngineRequest(api_url='http://localhost/rest/')
+        >>> api = MatchEngineRequest(api_url='http://localhost/rest/')
         >>> image = Image(filepath='/path/to/image.jpg')
         >>> api.add_image(images=[image])
         {u'error': [], u'method': u'add', u'result': [], u'status': u'ok'}
@@ -30,7 +30,7 @@ class MatchEngineRequest(TinEyeServiceRequest):
         return "MatchEngineRequest(api_url=%r, username=%r, password=%r)" %\
                (self.api_url, self.username, self.password)
 
-    def add_image(self, images):
+    def add_image(self, images, **kwargs):
         """
         Add images to the collection using data.
         
@@ -56,9 +56,9 @@ class MatchEngineRequest(TinEyeServiceRequest):
             file_params['images[%i]' % counter] = (image.collection_filepath, image.data)
             counter += 1
 
-        return self._request('add', params, file_params)
+        return self._request('add', params, file_params, **kwargs)
 
-    def add_url(self, images):
+    def add_url(self, images, **kwargs):
         """
         Add images to the collection via URLs.
         
@@ -84,9 +84,9 @@ class MatchEngineRequest(TinEyeServiceRequest):
             params['filepaths[%i]' % counter] = image.collection_filepath
             counter += 1
 
-        return self._request('add', params)
+        return self._request('add', params, **kwargs)
 
-    def search_image(self, image, min_score=0, offset=0, limit=10, check_horizontal_flip=False):
+    def search_image(self, image, min_score=0, offset=0, limit=10, check_horizontal_flip=False, **kwargs):
         """
         Search against the collection using image data and return any matches
         with corresponding scores.
@@ -119,9 +119,10 @@ class MatchEngineRequest(TinEyeServiceRequest):
 
         file_params = {'image': (image.collection_filepath, image.data)}
 
-        return self._request('search', params, file_params)
+        return self._request('search', params, file_params, **kwargs)
 
-    def search_filepath(self, filepath, min_score=0, offset=0, limit=10, check_horizontal_flip=False):
+    def search_filepath(self, filepath, min_score=0, offset=0, limit=10,
+                        check_horizontal_flip=False, **kwargs):
         """
         Search against the collection using an image already in the
         collection and return any matches with corresponding scores.
@@ -151,9 +152,10 @@ class MatchEngineRequest(TinEyeServiceRequest):
                   'limit': limit,
                   'check_horizontal_flip': check_horizontal_flip}
 
-        return self._request('search', params)
+        return self._request('search', params, **kwargs)
         
-    def search_url(self, url, min_score=0, offset=0, limit=10, check_horizontal_flip=False):
+    def search_url(self, url, min_score=0, offset=0, limit=10,
+                   check_horizontal_flip=False, **kwargs):
         """
         Search against the collection using an image URL 
         and return any matches with corresponding scores.
@@ -182,9 +184,9 @@ class MatchEngineRequest(TinEyeServiceRequest):
                   'limit': limit,
                   'check_horizontal_flip': check_horizontal_flip}
 
-        return self._request('search', params)
+        return self._request('search', params, **kwargs)
         
-    def compare_image(self, image_1, image_2, min_score=0, check_horizontal_flip=False):
+    def compare_image(self, image_1, image_2, min_score=0, check_horizontal_flip=False, **kwargs):
         """
         Given two images, compare them and return the match score if there
         is a match.
@@ -211,9 +213,9 @@ class MatchEngineRequest(TinEyeServiceRequest):
         image_params = {'image1': (image_1.collection_filepath, image_1.data),
                         'image2': (image_2.collection_filepath, image_2.data)}
 
-        return self._request('compare', params, image_params)
+        return self._request('compare', params, image_params, **kwargs)
         
-    def compare_url(self, url_1, url_2, min_score=0, check_horizontal_flip=False):
+    def compare_url(self, url_1, url_2, min_score=0, check_horizontal_flip=False, **kwargs):
         """
         Given two images, compare them and return the match score if there
         is a match.
@@ -241,4 +243,4 @@ class MatchEngineRequest(TinEyeServiceRequest):
                   'min_score': min_score,
                   'check_horizontal_flip': check_horizontal_flip}
 
-        return self._request('compare', params)
+        return self._request('compare', params, **kwargs)

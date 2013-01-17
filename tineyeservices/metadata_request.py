@@ -4,9 +4,9 @@ from image import Image
 from tineye_service_request import TinEyeServiceRequest
 
 class MetadataRequest(TinEyeServiceRequest):
-    """ Class to send requests to a TinEye servies API. """
+    """ Class to send requests to a TinEye Services API. """
 
-    def add_image(self, images, ignore_background=True):
+    def add_image(self, images, ignore_background=True, **kwargs):
         """
         Add images to the collection using data.
         
@@ -36,9 +36,9 @@ class MetadataRequest(TinEyeServiceRequest):
                 params['metadata[%i]' % counter] = image.metadata
             counter += 1
 
-        return self._request('add', params, file_params)
+        return self._request('add', params, file_params, **kwargs)
 
-    def add_url(self, images, ignore_background=True):
+    def add_url(self, images, ignore_background=True, **kwargs):
         """
         Add images to the collection via URLs.
         
@@ -68,35 +68,41 @@ class MetadataRequest(TinEyeServiceRequest):
                 params['metadata[%i]' % counter] = image.metadata
             counter += 1
 
-        return self._request('add', params)
+        return self._request('add', params, **kwargs)
 
-    def metadata_search(self, metadata, return_metadata='', 
-                        offset=0, limit=10):
+    def update_metadata(self, filepaths, metadata, **kwargs):
         """
-        Search against the collection and return any matches containing given keywords.
-        
+        Force a metadata update for images already present in the collection.
+
         Arguments:
 
-        - `metadata`, the metadata that will be searched for.
-        - `return_metadata`, the metadata to be returned with each match.
-        - `offset`, offset of results from the start.
-        - `limit`, maximum number of matches that should be returned.
+        - `filepaths`, a list of filepath strings of an image already in the collection
+          as returned by a search or list operation.
+        - `metadata`, the metadata to be stored with the image.
 
         Returned:
 
         - `status`, one of ok, warn, fail.
         - `error`, describes the error if status is not set to ok.
-        - `result`, a list of dictionaries representing an image match.
-
-          + `filepath`, match image path.
-          + `metadata`, metadata associated with this image match.
         """
-        params = {'metadata': metadata,
-                  'return_metadata': return_metadata}
+        params = {}
+        counter = 0
+        
+        if not isinstance(filepaths, list):
+            raise TypeError('Need to pass a list of filepaths')
+        
+        for filepath in filepaths:
+            params['filepaths[%i]' % counter] = filepath
+            counter += 1
 
-        return self._request('metadata_search', params)    
+        counter = 0
+        for filepath in filepaths:
+            params['metadata[%i]' % counter] = filepath
+            counter += 1
 
-    def get_metadata(self, filepaths):
+        return self._request('update_metadata', params, **kwargs)
+
+    def get_metadata(self, filepaths, **kwargs):
         """
         Get associated keywords from the index given a list of image filepaths.
         
@@ -121,9 +127,9 @@ class MetadataRequest(TinEyeServiceRequest):
             params['filepaths[%i]' % counter] = filepath
             counter += 1
 
-        return self._request('get_metadata', params)
+        return self._request('get_metadata', params, **kwargs)
 
-    def get_search_metadata(self):
+    def get_search_metadata(self, **kwargs):
         """
         Get the metadata tree structure that can be searched.
 
@@ -134,9 +140,9 @@ class MetadataRequest(TinEyeServiceRequest):
         - `result`, the tree structure that can be searched along with keyword type
           and the number of images from the index containing that keyword.
         """
-        return self._request('get_search_metadata', {})
+        return self._request('get_search_metadata', {}, **kwargs)
 
-    def get_return_metadata(self):
+    def get_return_metadata(self, **kwargs):
         """
         Get the metadata that can be returned by a search method along with each match.
 
@@ -147,4 +153,4 @@ class MetadataRequest(TinEyeServiceRequest):
         - `result`, a list of keywords with data type and the number of images 
           from the index containing that keyword.
         """
-        return self._request('get_return_metadata', {})
+        return self._request('get_return_metadata', {}, **kwargs)
