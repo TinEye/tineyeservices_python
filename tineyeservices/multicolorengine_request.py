@@ -17,9 +17,9 @@ class MulticolorEngineRequest(MetadataRequest):
         
     Searching for an image using colors:
     
-        >>> api.color_search_color(colors=['255,255,235', '12FA3B'])
+        >>> api.search_color(colors=['255,255,235', '12FA3B'])
         {'error': [],
-         'method': 'color_search',
+         'method': 'search',
          'result': [{'filepath': 'path/to/file.jpg',
                      'score': '13.00'}],
          'status': 'ok'}
