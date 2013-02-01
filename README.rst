@@ -14,8 +14,8 @@ Download the latest version of the library and install with pip:
 
 ::
 
-    $ wget https://github.com/TinEye/pytineye/zipball/master --output-document=pytineye.zip
-    $ pip install pytineye.zip
+    $ wget https://github.com/TinEye/tineyeservices_python/zipball/master --output-document=tineyeservices.zip
+    $ pip install tineyeservices.zip
 
 If you do not have pip, you can install it first:
 
