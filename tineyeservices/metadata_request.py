@@ -100,7 +100,7 @@ class MetadataRequest(TinEyeServiceRequest):
 
         counter = 0
         for m in metadata:
-            params['metadata[%i]' % counter] = metadata
+            params['metadata[%i]' % counter] = m
             counter += 1
 
         return self._request('update_metadata', params, **kwargs)
