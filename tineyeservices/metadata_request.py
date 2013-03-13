@@ -90,14 +90,17 @@ class MetadataRequest(TinEyeServiceRequest):
         
         if not isinstance(filepaths, list):
             raise TypeError('Need to pass a list of filepaths')
+       
+        if not isinstance(metadata, list):
+            raise TypeError('Need to pass a list of metadata')
         
         for filepath in filepaths:
             params['filepaths[%i]' % counter] = filepath
             counter += 1
 
         counter = 0
-        for filepath in filepaths:
-            params['metadata[%i]' % counter] = filepath
+        for m in metadata:
+            params['metadata[%i]' % counter] = metadata
             counter += 1
 
         return self._request('update_metadata', params, **kwargs)
