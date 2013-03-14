@@ -730,7 +730,7 @@ class MulticolorEngineRequest(MetadataRequest):
         params = {}
         counter = 0
         
-        if not isinstance(coumt_metadata, list):
+        if not isinstance(count_metadata, list):
             raise TypeError('Need to pass a list of count_metadata')
         
         for metadata in count_metadata:
@@ -758,7 +758,7 @@ class MulticolorEngineRequest(MetadataRequest):
         params = {'metadata': metadata}
         counter = 0
 
-        if not isinstance(coumt_metadata, list):
+        if not isinstance(count_metadata, list):
             raise TypeError('Need to pass a list of count_metadata')
 
         for metadata in count_metadata:
@@ -793,7 +793,7 @@ class MulticolorEngineRequest(MetadataRequest):
         if not isinstance(weights, list):
             raise TypeError('Need to pass a list of weights')
 
-        if not isinstance(coumt_metadata, list):
+        if not isinstance(count_metadata, list):
             raise TypeError('Need to pass a list of count_metadata')
 
         counter = 0
@@ -835,7 +835,7 @@ class MulticolorEngineRequest(MetadataRequest):
         if not isinstance(filepaths, list):
             raise TypeError('Need to pass a list of filepaths')
 
-        if not isinstance(coumt_metadata, list):
+        if not isinstance(count_metadata, list):
             raise TypeError('Need to pass a list of count_metadata')
 
         counter = 0
