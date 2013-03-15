@@ -1,4 +1,4 @@
-# Copyright (c) 2012 Idee Inc. All rights reserved worldwide.
+# Copyright (c) 2012-2013 Idee Inc. All rights reserved worldwide.
 
 from image import Image
 from tineye_service_request import TinEyeServiceRequest
