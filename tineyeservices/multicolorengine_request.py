@@ -371,8 +371,8 @@ class MulticolorEngineRequest(MetadataRequest):
             raise TypeError('Need to pass a list of count_colors')
 
         counter = 0
-        for color in count_colors:
-            params['count_colors[%i]' % counter] = color
+        for count_color in count_colors:
+            params['count_colors[%i]' % counter] = count_color
             counter += 1
 
         counter = 0
@@ -421,8 +421,8 @@ class MulticolorEngineRequest(MetadataRequest):
             raise TypeError('Need to pass a list of count_colors')
         
         counter = 0
-        for color in count_colors:
-            params['count_colors[%i]' % counter] = color
+        for count_color in count_colors:
+            params['count_colors[%i]' % counter] = count_color
             counter += 1
         
         counter = 0
@@ -576,8 +576,8 @@ class MulticolorEngineRequest(MetadataRequest):
             raise TypeError('Need to pass a list of count_colors')
 
         counter = 0
-        for color in count_colors:
-            params['count_colors[%i]' % counter] = color
+        for count_color in count_colors:
+            params['count_colors[%i]' % counter] = count_color
             counter += 1
 
         return self._request('count_collection_colors', params, **kwargs)
