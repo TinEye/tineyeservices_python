@@ -24,7 +24,7 @@ class TestMulticolorEngine(unittest.TestCase):
     """ Test MulticolorEngineRequest class. """
         
     def setUp(self):
-        self.request = MulticolorEngineRequest(api_url='http://localhost:5010/rest/')
+        self.request = MulticolorEngineRequest(api_url='http://localhost:5000/rest/')
         r = self.request.list()
         if len(r['result']) > 0:
             r = self.request.delete(r['result'])
@@ -210,19 +210,29 @@ class TestMulticolorEngine(unittest.TestCase):
         images = [Image(filepath='%s/banana.jpg' % imagepath, collection_filepath='banana.jpg')]
 
         # Image upload
-        r = self.request.count_image_colors_image(images=images, count_colors=['255,255,255'])
+        r = self.request.count_image_colors_image(images=images, count_colors=['255, 255, 255'])
         self.assertEquals(r['status'], 'ok')
         self.assertEquals(r['method'], 'count_image_colors')
         self.assertEquals(r['error'], [])
-        self.assertEquals(r['result'], [{'color': [255, 255, 255], 'num_images_full_area': '0', 'num_images_partial_area': '0'}])
+        self.assertTrue(len(r['result']) > 0)
+        self.assertEquals(r['result'][0]['color'], [255, 255, 255])
+        self.assertEquals(r['result'][0]['name'], 'White')
+        self.assertEquals(r['result'][0]['class'], 'White')
+        self.assertTrue('num_images_full_area' in r['result'][0])
+        self.assertTrue('num_images_partial_area' in r['result'][0])
 
         # Image URL
         urls=['http://www.tineye.com/images/meloncat.jpg']
-        r = self.request.count_image_colors_url(urls=urls, count_colors=['88,112,14'])
+        r = self.request.count_image_colors_url(urls=urls, count_colors=['88, 112, 14'])
         self.assertEquals(r['status'], 'ok')
         self.assertEquals(r['method'], 'count_image_colors')
         self.assertEquals(r['error'], [])
-        self.assertEquals(r['result'], [{'color': [88, 112, 14], 'num_images_full_area': '0', 'num_images_partial_area': '1'}])
+        self.assertTrue(len(r['result']) > 0)
+        self.assertEquals(r['result'][0]['color'], [88, 112, 14])
+        self.assertEquals(r['result'][0]['name'], 'Fiji Green')
+        self.assertEquals(r['result'][0]['class'], 'Green')
+        self.assertTrue('num_images_full_area' in r['result'][0])
+        self.assertTrue('num_images_partial_area' in r['result'][0])
 
     def test_count_collection_colors(self):        
         images = [Image(filepath='%s/banana.jpg' % imagepath, collection_filepath='banana.jpg', metadata=metadata)]
@@ -233,25 +243,45 @@ class TestMulticolorEngine(unittest.TestCase):
         self.assertEquals(r['status'], 'ok')
         self.assertEquals(r['method'], 'count_collection_colors')
         self.assertEquals(r['error'], [])
-        self.assertEquals(r['result'], [{'color': [242, 246, 27], 'num_images_full_area': '0', 'num_images_partial_area': '1'}])
+        self.assertTrue(len(r['result']) > 0)
+        self.assertEquals(r['result'][0]['color'], [242, 246, 27])
+        self.assertEquals(r['result'][0]['name'], 'Lemon')
+        self.assertEquals(r['result'][0]['class'], 'Yellow')
+        self.assertTrue('num_images_full_area' in r['result'][0])
+        self.assertTrue('num_images_partial_area' in r['result'][0])
 
-        r = self.request.count_collection_colors_colors(colors=['242,246,27'], count_colors=['123,235,27'])
+        r = self.request.count_collection_colors_colors(colors=['242, 246, 27'], count_colors=['123, 235, 27'])
         self.assertEquals(r['status'], 'ok')
         self.assertEquals(r['method'], 'count_collection_colors')
         self.assertEquals(r['error'], [])
-        self.assertEquals(r['result'], [{'color': [123, 235, 27], 'num_images_full_area': '0', 'num_images_partial_area': u'0'}])
+        self.assertTrue(len(r['result']) > 0)
+        self.assertEquals(r['result'][0]['color'], [123, 235, 27])
+        self.assertEquals(r['result'][0]['name'], 'Lawn Green')
+        self.assertEquals(r['result'][0]['class'], 'Green')
+        self.assertTrue('num_images_full_area' in r['result'][0])
+        self.assertTrue('num_images_partial_area' in r['result'][0])
 
-        r = self.request.count_collection_colors_metadata(metadata=search_metadata, count_colors=['123,235,27'])
+        r = self.request.count_collection_colors_metadata(metadata=search_metadata, count_colors=['123, 235, 27'])
         self.assertEquals(r['status'], 'ok')
         self.assertEquals(r['method'], 'count_collection_colors')
         self.assertEquals(r['error'], [])
-        self.assertEquals(r['result'], [{'color': [123, 235, 27], 'num_images_full_area': '0', 'num_images_partial_area': u'0'}])
+        self.assertTrue(len(r['result']) > 0)
+        self.assertEquals(r['result'][0]['color'], [123, 235, 27])
+        self.assertEquals(r['result'][0]['name'], 'Lawn Green')
+        self.assertEquals(r['result'][0]['class'], 'Green')
+        self.assertTrue('num_images_full_area' in r['result'][0])
+        self.assertTrue('num_images_partial_area' in r['result'][0])
 
-        r = self.request.count_collection_colors(count_colors=['123,235,27'])
+        r = self.request.count_collection_colors(count_colors=['123, 235, 27'])
         self.assertEquals(r['status'], 'ok')
         self.assertEquals(r['method'], 'count_collection_colors')
         self.assertEquals(r['error'], [])
-        self.assertEquals(r['result'], [{'color': [123, 235, 27], 'num_images_full_area': '0', 'num_images_partial_area': u'0'}])
+        self.assertTrue(len(r['result']) > 0)
+        self.assertEquals(r['result'][0]['color'], [123, 235, 27])
+        self.assertEquals(r['result'][0]['name'], 'Lawn Green')
+        self.assertEquals(r['result'][0]['class'], 'Green')
+        self.assertTrue('num_images_full_area' in r['result'][0])
+        self.assertTrue('num_images_partial_area' in r['result'][0])
 
     def test_extract_image_colors(self):        
         images = [Image(filepath='%s/banana.jpg' % imagepath, collection_filepath='banana.jpg')]
@@ -344,7 +374,13 @@ class TestMulticolorEngine(unittest.TestCase):
         self.assertEquals(r['status'], 'ok')
         self.assertEquals(r['method'], 'get_metadata')
         self.assertEquals(r['error'], [])
-        self.assertEquals(r['result'][0]['metadata']['keywords'], {u'action': u'search', u'': [u'octopus', u'whale', u'shark'], u'type': u'string'})
+        r_metadata = r['result'][0]['metadata']['keywords']
+        keywords = r_metadata['']
+        self.assertTrue('whale' in keywords)
+        self.assertTrue('octopus' in keywords)
+        self.assertTrue('shark' in keywords)
+        self.assertTrue(r_metadata['action'], 'search')
+        self.assertTrue(r_metadata['type'], 'string')
 
     def test_get_search_metadata(self):
         # Try getting metadata when there are no images
@@ -363,7 +399,7 @@ class TestMulticolorEngine(unittest.TestCase):
         self.assertEquals(r['method'], 'get_search_metadata')
         self.assertEquals(r['error'], [])
         self.assertTrue('keywords' in r['result'][0]['metadata'])
-        keywords = r['result'][0]['metadata']['keywords'][""]
+        keywords = r['result'][0]['metadata']['keywords']['']
         self.assertTrue('whale' in keywords)
         self.assertTrue('octopus' in keywords)
         self.assertTrue('shark' in keywords)

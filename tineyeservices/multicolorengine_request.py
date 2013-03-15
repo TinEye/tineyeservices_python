@@ -513,7 +513,7 @@ class MulticolorEngineRequest(MetadataRequest):
             counter += 1
 
         counter = 0
-        for color in weights:
+        for weight in weights:
             params['weights[%i]' % counter] = weights
             counter += 1
 
@@ -658,13 +658,13 @@ class MulticolorEngineRequest(MetadataRequest):
             counter += 1
 
         counter = 0
-        for color in weights:
+        for weight in weights:
             params['weights[%i]' % counter] = weights
             counter += 1
 
         counter = 0
-        for color in count_colors:
-            params['count_colors[%i]' % counter] = count_colors
+        for count_color in count_colors:
+            params['count_colors[%i]' % counter] = count_color
             counter += 1
  
         return self._request('count_collection_colors', params, **kwargs)
@@ -706,8 +706,8 @@ class MulticolorEngineRequest(MetadataRequest):
             counter += 1
 
         counter = 0
-        for color in count_colors:
-            params['count_colors[%i]' % counter] = count_colors
+        for count_color in count_colors:
+            params['count_colors[%i]' % counter] = count_color
             counter += 1
 
         return self._request('count_collection_colors', params, **kwargs)
@@ -802,7 +802,7 @@ class MulticolorEngineRequest(MetadataRequest):
             counter += 1
 
         counter = 0
-        for color in weights:
+        for weight in weights:
             params['weights[%i]' % counter] = weights
             counter += 1
 
