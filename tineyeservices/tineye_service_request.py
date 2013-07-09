@@ -10,6 +10,16 @@ class TinEyeServiceRequest():
     """ Class to send requests to a TinEye servies API. """
     
     def __init__(self, api_url='http://localhost/rest/', username=None, password=None):
+
+        # The API URL must end in /rest/, if it does not, suggest a URL
+        if not api_url.endswith('/rest/'):
+            correction = '/rest/'
+            if api_url.endswith('/'):
+                correction = 'rest/'
+            error = ("The API URL must end with %s (are you sure you didn't mean "
+                     "%s%s?" % (correction, api_url, correction))
+            raise TinEyeServiceWarning(error)
+
         self.api_url = api_url
         self.username = username
         self.password = password
