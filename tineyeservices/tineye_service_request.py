@@ -48,11 +48,12 @@ class TinEyeServiceRequest():
         if response.status_code != requests.codes.ok:
             response.raise_for_status()
 
-        # Handle API errors
-        if response_json['status'] == 'fail':
-            raise TinEyeServiceError(response_json.get('error'))
-        elif response_json['status'] == 'warn':
-            raise TinEyeServiceWarning(response_json.get('error'))
+        # Handle API errors.
+        # No, let the caller see everything.  Doing this may lose info.
+        #if response_json['status'] == 'fail':
+        #    raise TinEyeServiceError(response_json.get('error'))
+        #elif response_json['status'] == 'warn':
+        #    raise TinEyeServiceWarning(response_json.get('error'))
 
         return response_json
 
