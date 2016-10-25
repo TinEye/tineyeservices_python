@@ -2,9 +2,9 @@ TinEye Services API Python client
 =================================
 
 **tineyeservices** is a Python client for the MatchEngine, MobileEngine,
-and MulticolorEngine APIs. MatchEngine, MobileEngine and MulticolorEngine
-are general image matching engines that allow you to perform large
-scale image comparisons for a variety of tasks.
+MulticolorEngine and WineEngine APIs. MatchEngine, MobileEngine,
+MulticolorEngine and WineEngine are general image matching engines that allow
+you to perform large scale image comparisons for a variety of tasks.
 See `<http://services.tineye.com/>`_ for more information.
 
 Installation
