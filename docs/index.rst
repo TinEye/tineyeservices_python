@@ -5,8 +5,8 @@
 .. currentmodule:: tineyeservices
 
 :mod:`tineyeservices` is a Python client for the MatchEngine,
-MobileEngine, and MulticolorEngine APIs. MatchEngine, MobileEngine
-and MulticolorEngine are general image matching engines
+MobileEngine, MulticolorEngine and WineEngine APIs. MatchEngine, MobileEngine,
+MulticolorEngine and WineEngine are general image matching engines
 that allow you to perform large scale image comparisons for a variety of tasks.
 
 .. contents::
@@ -18,7 +18,6 @@ Image
 .. autoclass:: tineyeservices.Image
     :inherited-members:
     :members:
-    :special-members:
 
 MatchEngineRequest
 ==================
@@ -26,15 +25,13 @@ MatchEngineRequest
 .. autoclass:: tineyeservices.MatchEngineRequest
     :inherited-members:
     :members:
-    :special-members:
 
 MobileEngineRequest
 ===================
 
 .. autoclass:: tineyeservices.MobileEngineRequest
     :inherited-members:
-        :members:
-            :special-members:
+    :members:
 
 MulticolorEngineRequest
 =======================
@@ -42,7 +39,13 @@ MulticolorEngineRequest
 .. autoclass:: tineyeservices.MulticolorEngineRequest
     :inherited-members:
     :members:
-    :special-members:
+
+WineEngineRequest
+=================
+
+.. autoclass:: tineyeservices.WineEngineRequest
+    :inherited-members:
+    :members:
 
 Exceptions
 ==========
@@ -50,5 +53,5 @@ Exceptions
 .. autoclass:: tineyeservices.TinEyeServiceException
 
 .. autoclass:: tineyeservices.TinEyeServiceError
-       
+
 .. autoclass:: tineyeservices.TinEyeServiceWarning
