@@ -8,7 +8,7 @@ from requests.auth import HTTPBasicAuth
 
 class TinEyeServiceRequest():
     """ Class to send requests to a TinEye servies API. """
-    
+
     def __init__(self, api_url='http://localhost/rest/', username=None, password=None):
 
         # The API URL must end in /rest/, if it does not, suggest a URL
@@ -17,7 +17,7 @@ class TinEyeServiceRequest():
             if api_url.endswith('/'):
                 correction = 'rest/'
             error = ("The API URL must end with %s (are you sure you didn't mean "
-                     "%s%s?" % (correction, api_url, correction))
+                     "%s%s?)" % (correction, api_url, correction))
             raise TinEyeServiceWarning(error)
 
         self.api_url = api_url
@@ -26,7 +26,7 @@ class TinEyeServiceRequest():
 
     def _request(self, method, params, file_params=None, **kwargs):
         """ Make an HTTP request. """
-        
+
         # Handle basic authentication if needed
         headers = {}
         auth = None
@@ -60,27 +60,27 @@ class TinEyeServiceRequest():
     def delete(self, filepaths, **kwargs):
         """
         Delete images from the collection.
-        
+
         Arguments:
-        
+
         - `filepaths`, a list of string filepaths as returned by
           a search or list call.
-              
+
         Returned:
-        
+
         - `status`, one of ok, warn, fail.
         - `error`, describes the error if status is not set to ok.
         """
         params = {}
         counter = 0
-            
+
         if not isinstance(filepaths, list):
             raise TypeError('Need to pass a list of filepaths')
 
         for filepath in filepaths:
             params['filepaths[%i]' % counter] = filepath
             counter += 1
-        
+
         return self._request('delete', params, **kwargs)
 
     def count(self, **kwargs):
@@ -88,24 +88,24 @@ class TinEyeServiceRequest():
         Get the number of items currently in the collection.
 
         Returned:
-        
+
         - `status`, one of ok, warn, fail.
         - `error`, describes the error if status is not set to ok.
         - `result`, a list containing the number of images in the collection.
         """
         return self._request('count', {}, **kwargs)
-        
+
     def list(self, offset=0, limit=20, **kwargs):
         """
         List the images present in the collection.
 
         Arguments:
-        
+
         - `offset`, offset of results from the start.
         - `limit`, maximum number of images that should be returned.
 
         Returned:
-        
+
         - `status`, one of ok, warn, fail.
         - `error`, describes the error if status is not set to ok.
         - `result`, a list of filepaths.
@@ -117,7 +117,7 @@ class TinEyeServiceRequest():
         Check whether the API search server is running.
 
         Returned:
-        
+
         - `status`, one of ok, warn, fail.
         - `error`, describes the error if status is not set to ok.
         """
