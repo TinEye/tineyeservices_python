@@ -1,12 +1,12 @@
-# Copyright (c) 2012-2013 Idee Inc. All rights reserved worldwide.
+# -*- coding: utf-8 -*-
+# Copyright (c) 2012-2016 Idée Inc. All rights reserved worldwide.
 
 import requests
-
 from exception import TinEyeServiceError, TinEyeServiceWarning
-from image import Image
 from requests.auth import HTTPBasicAuth
 
-class TinEyeServiceRequest():
+
+class TinEyeServiceRequest(object):
     """ Class to send requests to a TinEye servies API. """
 
     def __init__(self, api_url='http://localhost/rest/', username=None, password=None):
@@ -28,7 +28,6 @@ class TinEyeServiceRequest():
         """ Make an HTTP request. """
 
         # Handle basic authentication if needed
-        headers = {}
         auth = None
         if self.username is not None:
             auth = HTTPBasicAuth(self.username, self.password)
@@ -38,7 +37,7 @@ class TinEyeServiceRequest():
 
         response = None
         url = self.api_url + method + '/'
-        if file_params == None:
+        if file_params is None:
             response = requests.get(url, params=params, auth=auth)
         else:
             response = requests.post(url, params=params, files=file_params, auth=auth)

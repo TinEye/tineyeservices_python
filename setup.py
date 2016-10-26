@@ -1,24 +1,26 @@
-from setuptools import setup, find_packages
-import sys, os
+# -*- coding: utf-8 -*-
+# Copyright (c) 2016 Idée Inc. All rights reserved worldwide.
 
-version = '1.3'
+from setuptools import setup, find_packages
+
+version = '1.6.0'
 
 setup(name='tineyeservices',
       version=version,
-      description="Python client for the MatchEngine, MobileEngine, and MulticolorEngine APIs.",
+      description="Python client for the MatchEngine, MobileEngine, MulticolorEngine and WineEngine APIs.",
       long_description="""\
-MatchEngine, MobileEngine and MulticolorEngine are general image matching engines that allow you to perform large scale image comparisons for a variety of tasks.""",
-      classifiers=[], # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
+MatchEngine, MobileEngine, MulticolorEngine and WineEngine are general image matching engines that allow you to perform large scale image comparisons for a variety of tasks.""",
+      classifiers=[],  # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
       keywords='image search',
-      author='Id\xc3\xa9e Inc.',
+      author='Idée Inc.',
       author_email='support@tineye.com',
-      url='http://tineye.com/',
+      url='https://tineye.com/',
       license='MIT License',
       packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
       include_package_data=True,
       zip_safe=True,
       install_requires=[
-          'requests>=1.1.0'
+          'requests==2.7.0'
       ],
       entry_points="""
       # -*- Entry points: -*-

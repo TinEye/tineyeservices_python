@@ -1,4 +1,5 @@
-# Copyright (c) 2012-2016 Idee Inc. All rights reserved worldwide.
+# -*- coding: utf-8 -*-
+# Copyright (c) 2012-2016 Idée Inc. All rights reserved worldwide.
 
 from exception import *
 from image import Image
