@@ -3,7 +3,7 @@
 
 from setuptools import setup, find_packages
 
-version = '1.6.0'
+version = '1.6.1'
 
 setup(name='tineyeservices',
       version=version,
@@ -11,16 +11,16 @@ setup(name='tineyeservices',
       long_description="""\
 MatchEngine, MobileEngine, MulticolorEngine and WineEngine are general image matching engines that allow you to perform large scale image comparisons for a variety of tasks.""",
       classifiers=[],  # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
-      keywords='image search',
+      keywords='reverse image search',
       author='Idée Inc.',
       author_email='support@tineye.com',
-      url='https://tineye.com/',
+      url='https://services.tineye.com/',
       license='MIT License',
       packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
       include_package_data=True,
       zip_safe=True,
       install_requires=[
-          'requests==2.7.0'
+          'requests>=2.7.0,<3.0'
       ],
       entry_points="""
       # -*- Entry points: -*-
