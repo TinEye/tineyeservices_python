@@ -1,18 +1,16 @@
-# Copyright (c) 2012-2013 Idee Inc. All rights reserved worldwide.
+# Copyright (c) 2017 TinEye. All rights reserved worldwide.
 
-import sys
-sys.path.append('../')
-
-import contextlib
 import os
-import unittest
 import simplejson
+import sys
+import unittest
 
 from tineyeservices import MulticolorEngineRequest
 from tineyeservices import Image
 from tineyeservices.exception import TinEyeServiceError, TinEyeServiceWarning
 
 imagepath = os.path.abspath("test/images")
+sys.path.append('../')
 
 metadata_json = {"keywords": ["whale", "shark", "octopus"], "id": {"action": "return", "type": "uint", "": "12345"}}
 metadata = simplejson.dumps(metadata_json)
@@ -20,9 +18,10 @@ metadata = simplejson.dumps(metadata_json)
 search_metadata_json = {"keywords": "whale"}
 search_metadata = simplejson.dumps(search_metadata_json)
 
+
 class TestMulticolorEngine(unittest.TestCase):
     """ Test MulticolorEngineRequest class. """
-        
+
     def setUp(self):
         self.request = MulticolorEngineRequest(api_url='http://localhost:5000/rest/')
         r = self.request.list()
@@ -43,7 +42,7 @@ class TestMulticolorEngine(unittest.TestCase):
         self.assertEquals(r['method'], 'add')
         self.assertEquals(r['error'], [])
         self.assertEquals(r['result'], [])
-        
+
         # Image upload with metadata
         images = [Image(filepath='%s/banana.jpg' % imagepath, collection_filepath='folder/banana.jpg', metadata=metadata),
                   Image(filepath='%s/banana_flip.jpg' % imagepath, collection_filepath='banana_flip.jpg', metadata=metadata)]
@@ -52,26 +51,26 @@ class TestMulticolorEngine(unittest.TestCase):
         self.assertEquals(r['method'], 'add')
         self.assertEquals(r['error'], [])
         self.assertEquals(r['result'], [])
-        
+
         r = self.request.list()
         self.assertEquals(r['result'], ['folder/banana.jpg', 'banana_flip.jpg'])
-        
+
         # URL
-        images = [Image(url='http://www.tineye.com/images/meloncat.jpg')]
+        images = [Image(url='https://tineye.com/images/meloncat.jpg')]
         r = self.request.add_url(images)
         self.assertEquals(r['status'], 'ok')
         self.assertEquals(r['method'], 'add')
         self.assertEquals(r['error'], [])
         self.assertEquals(r['result'], [])
-        
+
         # URL with metadata
-        images = [Image(url='http://www.tineye.com/images/meloncat.jpg', metadata=metadata)]
+        images = [Image(url='https://tineye.com/images/meloncat.jpg', metadata=metadata)]
         r = self.request.add_url(images)
         self.assertEquals(r['status'], 'ok')
         self.assertEquals(r['method'], 'add')
         self.assertEquals(r['error'], [])
         self.assertEquals(r['result'], [])
-        
+
         r = self.request.list()
         self.assertEquals(r['result'], ['folder/banana.jpg', 'banana_flip.jpg', 'meloncat.jpg'])
 
@@ -80,7 +79,7 @@ class TestMulticolorEngine(unittest.TestCase):
                   Image(filepath='%s/banana_flip.jpg' % imagepath, collection_filepath='banana_flip.jpg')]
         r = self.request.add_image(images)
         self.assertEquals(r['status'], 'ok')
-        
+
         r = self.request.delete(['folder/banana.jpg'])
         self.assertEquals(r['status'], 'ok')
         self.assertEquals(r['method'], 'delete')
@@ -111,13 +110,13 @@ class TestMulticolorEngine(unittest.TestCase):
         self.assertEquals(r['method'], 'color_search')
         self.assertEquals(r['error'], [])
         self.assertEquals(len(r['result']), 1)
-    
+
         # URL
-        images = [Image(url='http://www.tineye.com/images/meloncat.jpg')]
+        images = [Image(url='https://tineye.com/images/meloncat.jpg')]
         r = self.request.add_url(images)
         self.assertEquals(r['status'], 'ok')
 
-        r = self.request.search_url('http://www.tineye.com/images/meloncat.jpg')
+        r = self.request.search_url('https://tineye.com/images/meloncat.jpg')
         self.assertEquals(r['status'], 'ok')
         self.assertEquals(r['method'], 'color_search')
         self.assertEquals(r['error'], [])
@@ -127,9 +126,9 @@ class TestMulticolorEngine(unittest.TestCase):
 
         # Test bad URL
         try:
-            r = self.request.search_url('http://www.tineye.com/404')
+            r = self.request.search_url('https://tineye.com/404')
         except TinEyeServiceError, e:
-            self.assertEquals(e.args[0], ['http://www.tineye.com/404: Failed to download file.'])
+            self.assertEquals(e.args[0], ['https://tineye.com/404: Failed to download file.'])
 
         # Filepath
         r = self.request.search_filepath('meloncat.jpg')
@@ -191,7 +190,7 @@ class TestMulticolorEngine(unittest.TestCase):
             r = self.request.search_metadata(metadata=search_metadata, return_metadata=simplejson.dumps((['id'])))
         except TinEyeServiceError, e:
             self.assertTrue(e.args[0], 'The return metadata tag "tag" is missing from the per-item index')
-        
+
         # Add two images with metadata and search for images sorted by ascending id
         images = [Image(filepath='%s/banana.jpg' % imagepath, collection_filepath='banana.jpg', metadata=metadata),
                   Image(filepath='%s/banana_flip.jpg' % imagepath, collection_filepath='banana_flip.jpg', metadata=metadata)]
@@ -206,7 +205,7 @@ class TestMulticolorEngine(unittest.TestCase):
         self.assertEquals(len(r['result']), 2)
         self.assertEquals(r['result'][0]['metadata']['id'], '12345')
 
-    def test_count_image_colors(self):        
+    def test_count_image_colors(self):
         images = [Image(filepath='%s/banana.jpg' % imagepath, collection_filepath='banana.jpg')]
 
         # Image upload
@@ -222,7 +221,7 @@ class TestMulticolorEngine(unittest.TestCase):
         self.assertTrue('num_images_partial_area' in r['result'][0])
 
         # Image URL
-        urls=['http://www.tineye.com/images/meloncat.jpg']
+        urls=['https://tineye.com/images/meloncat.jpg']
         r = self.request.count_image_colors_url(urls=urls, count_colors=['88, 112, 14'])
         self.assertEquals(r['status'], 'ok')
         self.assertEquals(r['method'], 'count_image_colors')
@@ -234,7 +233,7 @@ class TestMulticolorEngine(unittest.TestCase):
         self.assertTrue('num_images_full_area' in r['result'][0])
         self.assertTrue('num_images_partial_area' in r['result'][0])
 
-    def test_count_collection_colors(self):        
+    def test_count_collection_colors(self):
         images = [Image(filepath='%s/banana.jpg' % imagepath, collection_filepath='banana.jpg', metadata=metadata)]
         r = self.request.add_image(images)
         self.assertEquals(r['status'], 'ok')
@@ -283,11 +282,11 @@ class TestMulticolorEngine(unittest.TestCase):
         self.assertTrue('num_images_full_area' in r['result'][0])
         self.assertTrue('num_images_partial_area' in r['result'][0])
 
-    def test_extract_image_colors(self):        
+    def test_extract_image_colors(self):
         images = [Image(filepath='%s/banana.jpg' % imagepath, collection_filepath='banana.jpg')]
         r = self.request.add_image(images)
         self.assertEquals(r['status'], 'ok')
-        
+
         # Image upload, rgb
         r = self.request.extract_image_colors_image([images[0]], limit=5)
         self.assertEquals(r['status'], 'ok')
@@ -301,19 +300,19 @@ class TestMulticolorEngine(unittest.TestCase):
         self.assertEquals(r['status'], 'ok')
         self.assertEquals(r['method'], 'extract_image_colors')
         self.assertEquals(r['error'], [])
-        self.assertTrue(len(r['result']) > 5) 
+        self.assertTrue(len(r['result']) > 5)
         self.assertEquals(len(r['result'][0]['color']), 6)
 
         # URL, rgb
-        r = self.request.extract_image_colors_url(['http://www.tineye.com/images/meloncat.jpg'])
+        r = self.request.extract_image_colors_url(['https://tineye.com/images/meloncat.jpg'])
         self.assertEquals(r['status'], 'ok')
         self.assertEquals(r['method'], 'extract_image_colors')
         self.assertEquals(r['error'], [])
         self.assertTrue(len(r['result']) > 5)
         self.assertTrue(isinstance(r['result'][0]['color'], list))
-        
+
         # URL, hex
-        r = self.request.extract_image_colors_url(['http://www.tineye.com/images/meloncat.jpg'], color_format='hex')
+        r = self.request.extract_image_colors_url(['https://tineye.com/images/meloncat.jpg'], color_format='hex')
         self.assertEquals(r['status'], 'ok')
         self.assertEquals(r['method'], 'extract_image_colors')
         self.assertEquals(r['error'], [])
@@ -324,13 +323,13 @@ class TestMulticolorEngine(unittest.TestCase):
         images = [Image(filepath='%s/banana.jpg' % imagepath, collection_filepath='banana.jpg', metadata=metadata)]
         r = self.request.add_image(images)
         self.assertEquals(r['status'], 'ok')
-        
+
         # Collection, rgb
         r = self.request.extract_collection_colors()
         self.assertEquals(r['status'], 'ok')
         self.assertEquals(r['method'], 'extract_collection_colors')
         self.assertEquals(r['error'], [])
-        self.assertTrue(len(r['result']) > 1) 
+        self.assertTrue(len(r['result']) > 1)
         self.assertTrue(isinstance(r['result'][0]['color'], list))
 
         # Filepath, rgb
@@ -338,7 +337,7 @@ class TestMulticolorEngine(unittest.TestCase):
         self.assertEquals(r['status'], 'ok')
         self.assertEquals(r['method'], 'extract_collection_colors')
         self.assertEquals(r['error'], [])
-        self.assertTrue(len(r['result']) > 1)  
+        self.assertTrue(len(r['result']) > 1)
         self.assertTrue(isinstance(r['result'][0]['color'], list))
 
         # Filepath, hex
@@ -346,7 +345,7 @@ class TestMulticolorEngine(unittest.TestCase):
         self.assertEquals(r['status'], 'ok')
         self.assertEquals(r['method'], 'extract_collection_colors')
         self.assertEquals(r['error'], [])
-        self.assertTrue(len(r['result']) > 1)  
+        self.assertTrue(len(r['result']) > 1)
         self.assertEquals(len(r['result'][0]['color']), 6)
 
         # Metadata, rgb
@@ -354,7 +353,7 @@ class TestMulticolorEngine(unittest.TestCase):
         self.assertEquals(r['status'], 'ok')
         self.assertEquals(r['method'], 'extract_collection_colors')
         self.assertEquals(r['error'], [])
-        self.assertTrue(len(r['result']) > 1)  
+        self.assertTrue(len(r['result']) > 1)
         self.assertEquals(len(r['result'][0]['color']), 6)
 
         # Colors, rgb
@@ -388,12 +387,12 @@ class TestMulticolorEngine(unittest.TestCase):
             r = self.request.get_search_metadata()
         except TinEyeServiceWarning, e:
             self.assertEquals(e.args[0], [u'Failed to get the search metadata from index.'])
-        
+
         # Add an image with metadata first then get data that can be searched for
         images = [Image(filepath='%s/banana.jpg' % imagepath, collection_filepath='banana.jpg', metadata=metadata)]
         r = self.request.add_image(images)
         self.assertEquals(r['status'], 'ok')
-        
+
         r = self.request.get_search_metadata()
         self.assertEquals(r['status'], 'ok')
         self.assertEquals(r['method'], 'get_search_metadata')
@@ -403,25 +402,25 @@ class TestMulticolorEngine(unittest.TestCase):
         self.assertTrue('whale' in keywords)
         self.assertTrue('octopus' in keywords)
         self.assertTrue('shark' in keywords)
-        
+
     def test_get_return_metadata(self):
         # Try getting metadata when there are no images
         try:
             r = self.request.get_return_metadata()
         except TinEyeServiceWarning, e:
             self.assertEquals(e.args[0], [u'Failed to get the return metadata from index.'])
-        
+
         # Add an image with metadata first then get data that can be returned
         images = [Image(filepath='%s/banana.jpg' % imagepath, collection_filepath='banana.jpg', metadata=metadata)]
         r = self.request.add_image(images)
         self.assertEquals(r['status'], 'ok')
-        
+
         r = self.request.get_return_metadata()
         self.assertEquals(r['status'], 'ok')
         self.assertEquals(r['method'], 'get_return_metadata')
         self.assertEquals(r['error'], [])
         self.assertEquals(r['result'], [{'metadata': {'id': {'count': '1', '': None, 'type': 'uint'}}}])
-        
+
     def test_count(self):
         # No images
         r = self.request.count()
@@ -434,17 +433,17 @@ class TestMulticolorEngine(unittest.TestCase):
                   Image(filepath='%s/banana_flip.jpg' % imagepath)]
         r = self.request.add_image(images)
         self.assertEquals(r['status'], 'ok')
-        
+
         # Added two images
         r = self.request.count()
         self.assertEquals(r['status'], 'ok')
         self.assertEquals(r['method'], 'count')
         self.assertEquals(r['error'], [])
         self.assertEquals(r['result'][0], 2)
-        
+
         r = self.request.delete(['banana.png'])
         self.assertEquals(r['status'], 'ok')
- 
+
         # Deleted one image
         r = self.request.count()
         self.assertEquals(r['status'], 'ok')
@@ -464,7 +463,7 @@ class TestMulticolorEngine(unittest.TestCase):
         images = [Image(filepath='%s/banana.png' % imagepath, collection_filepath='banana.png')]
         r = self.request.add_image(images)
         self.assertEquals(r['status'], 'ok')
-        
+
         r = self.request.list()
         self.assertEquals(r['status'], 'ok')
         self.assertEquals(r['method'], 'list')

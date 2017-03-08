@@ -1,18 +1,18 @@
-# Copyright (c) 2012-2013 Idee Inc. All rights reserved worldwide.
-
-import sys
-sys.path.append('../')
+# Copyright (c) 2017 TinEye. All rights reserved worldwide.
 
 import os
+import sys
 import unittest
 
 from tineyeservices import Image
 
 imagepath = os.path.abspath("test/images")
+sys.path.append('../')
+
 
 class TestImage(unittest.TestCase):
     """ Test Image class. """
-    
+
     def setUp(self):
         pass
 
@@ -26,14 +26,14 @@ class TestImage(unittest.TestCase):
         self.assertEquals(image.url, '')
         self.assertEquals(image.collection_filepath, 'folder/banana.jpg')
         self.assertEquals(image.metadata, None)
-        
+
         # URL
-        image = Image(url='http://www.tineye.com/images/meloncat.jpg', collection_filepath='meloncat.jpg')
+        image = Image(url='https://tineye.com/images/meloncat.jpg', collection_filepath='meloncat.jpg')
         self.assertEquals(image.data, None)
         self.assertEquals(image.collection_filepath, 'meloncat.jpg')
-        self.assertEquals(image.url, 'http://www.tineye.com/images/meloncat.jpg')
+        self.assertEquals(image.url, 'https://tineye.com/images/meloncat.jpg')
         self.assertEquals(image.metadata, None)
-        
+
         # Not supplying any information
         try:
             image = Image()

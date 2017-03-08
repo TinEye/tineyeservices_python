@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2016 Idée Inc. All rights reserved worldwide.
+# Copyright (c) 2017 TinEye. All rights reserved worldwide.
 
 from setuptools import setup, find_packages
 
-version = '1.6.1'
+version = '1.6.2'
 
 setup(name='tineyeservices',
       version=version,
@@ -12,7 +12,7 @@ setup(name='tineyeservices',
 MatchEngine, MobileEngine, MulticolorEngine and WineEngine are general image matching engines that allow you to perform large scale image comparisons for a variety of tasks.""",
       classifiers=[],  # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
       keywords='reverse image search',
-      author='Idée Inc.',
+      author='TinEye',
       author_email='support@tineye.com',
       url='https://services.tineye.com/',
       license='MIT License',

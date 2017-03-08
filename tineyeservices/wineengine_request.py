@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-# Copyright (c) 2016 Idée Inc. All rights reserved worldwide.
+# Copyright (c) 2017 TinEye. All rights reserved worldwide.
 
 from mobileengine_request import MobileEngineRequest
 
@@ -18,7 +17,7 @@ class WineEngineRequest(MobileEngineRequest):
 
     Searching for an image using an image URL:
 
-        >>> api.search_url(url='http://www.tineye.com/images/meloncat.jpg')
+        >>> api.search_url(url='https://tineye.com/images/meloncat.jpg')
         {'error': [],
          'method': 'search',
          'result': [{'filepath': 'match1.png',

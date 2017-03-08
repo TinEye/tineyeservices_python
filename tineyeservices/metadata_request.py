@@ -1,7 +1,8 @@
-# Copyright (c) 2012-2013 Idee Inc. All rights reserved worldwide.
+# Copyright (c) 2017 TinEye. All rights reserved worldwide.
 
 from image import Image
 from tineye_service_request import TinEyeServiceRequest
+
 
 class MetadataRequest(TinEyeServiceRequest):
     """ Class to send requests to a TinEye Services API. """
@@ -9,13 +10,13 @@ class MetadataRequest(TinEyeServiceRequest):
     def add_image(self, images, ignore_background=True, **kwargs):
         """
         Add images to the collection using data.
-        
+
         Arguments:
 
         - `images`, a list of Image objects.
         - `ignore_background`, if true, ignore the background color of the images,
           if false, include the background color of the images.
-              
+
         Returned:
 
         - `status`, one of ok, warn, fail.
@@ -41,7 +42,7 @@ class MetadataRequest(TinEyeServiceRequest):
     def add_url(self, images, ignore_background=True, **kwargs):
         """
         Add images to the collection via URLs.
-        
+
         Arguments:
 
         - `images`, a list of Image objects.
@@ -55,7 +56,7 @@ class MetadataRequest(TinEyeServiceRequest):
         """
         params = {'ignore_background': ignore_background}
         counter = 0
-            
+
         if not isinstance(images, list):
             raise TypeError('Need to pass a list of Image objects')
 
@@ -87,13 +88,13 @@ class MetadataRequest(TinEyeServiceRequest):
         """
         params = {}
         counter = 0
-        
+
         if not isinstance(filepaths, list):
             raise TypeError('Need to pass a list of filepaths')
-       
+
         if not isinstance(metadata, list):
             raise TypeError('Need to pass a list of metadata')
-        
+
         for filepath in filepaths:
             params['filepaths[%i]' % counter] = filepath
             counter += 1
@@ -108,7 +109,7 @@ class MetadataRequest(TinEyeServiceRequest):
     def get_metadata(self, filepaths, **kwargs):
         """
         Get associated keywords from the index given a list of image filepaths.
-        
+
         Arguments:
 
         - `filepaths`, a list of filepath strings of an image already in the collection
@@ -122,10 +123,10 @@ class MetadataRequest(TinEyeServiceRequest):
         """
         params = {}
         counter = 0
-        
+
         if not isinstance(filepaths, list):
             raise TypeError('Need to pass a list of filepaths')
-        
+
         for filepath in filepaths:
             params['filepaths[%i]' % counter] = filepath
             counter += 1
@@ -153,7 +154,7 @@ class MetadataRequest(TinEyeServiceRequest):
 
         - `status`, one of ok, warn, fail.
         - `error`, describes the error if status is not set to ok.
-        - `result`, a list of keywords with data type and the number of images 
+        - `result`, a list of keywords with data type and the number of images
           from the index containing that keyword.
         """
         return self._request('get_return_metadata', {}, **kwargs)

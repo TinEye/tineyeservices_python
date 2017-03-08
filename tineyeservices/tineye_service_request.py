@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-# Copyright (c) 2012-2016 Idée Inc. All rights reserved worldwide.
+# Copyright (c) 2017 TinEye. All rights reserved worldwide.
 
 import requests
 from exception import TinEyeServiceError, TinEyeServiceWarning
@@ -32,15 +31,19 @@ class TinEyeServiceRequest(object):
         if self.username is not None:
             auth = HTTPBasicAuth(self.username, self.password)
 
+        # Check for timeout and pass to requests too
+        timeout = kwargs.get('timeout', None)
+
         # Pass the extra arguments as parameters to the call
         params.update(kwargs)
 
         response = None
         url = self.api_url + method + '/'
         if file_params is None:
-            response = requests.get(url, params=params, auth=auth)
+            response = requests.get(url, params=params, auth=auth, timeout=timeout)
         else:
-            response = requests.post(url, params=params, files=file_params, auth=auth)
+            response = requests.post(
+                url, params=params, files=file_params, auth=auth, timeout=timeout)
         response_json = response.json()
 
         # Handle any HTTP errors
