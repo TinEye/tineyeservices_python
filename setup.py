@@ -3,7 +3,7 @@
 
 from setuptools import setup, find_packages
 
-version = '1.6.2'
+version = '1.6.3'
 
 setup(name='tineyeservices',
       version=version,

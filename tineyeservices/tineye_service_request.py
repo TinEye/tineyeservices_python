@@ -44,12 +44,12 @@ class TinEyeServiceRequest(object):
         else:
             response = requests.post(
                 url, params=params, files=file_params, auth=auth, timeout=timeout)
-        response_json = response.json()
 
         # Handle any HTTP errors
         if response.status_code != requests.codes.ok:
             response.raise_for_status()
 
+        response_json = response.json()
         # Handle API errors.
         # No, let the caller see everything.  Doing this may lose info.
         #if response_json['status'] == 'fail':
