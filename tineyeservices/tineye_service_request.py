@@ -1,7 +1,8 @@
-# Copyright (c) 2017 TinEye. All rights reserved worldwide.
+# -*- coding: utf-8 -*-
+# Copyright (c) 2018 TinEye. All rights reserved worldwide.
 
 import requests
-from exception import TinEyeServiceError, TinEyeServiceWarning
+from .exception import TinEyeServiceError, TinEyeServiceWarning
 from requests.auth import HTTPBasicAuth
 
 

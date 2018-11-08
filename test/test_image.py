@@ -1,4 +1,5 @@
-# Copyright (c) 2017 TinEye. All rights reserved worldwide.
+# -*- coding: utf-8 -*-
+# Copyright (c) 2018 TinEye. All rights reserved worldwide.
 
 import os
 import sys
@@ -23,19 +24,22 @@ class TestImage(unittest.TestCase):
         # Image upload
         image = Image(filepath='%s/banana.jpg' % imagepath, collection_filepath='folder/banana.jpg')
         self.assertTrue(image.data is not None)
-        self.assertEquals(image.url, '')
-        self.assertEquals(image.collection_filepath, 'folder/banana.jpg')
-        self.assertEquals(image.metadata, None)
+        self.assertEqual(image.url, '')
+        self.assertEqual(image.collection_filepath, 'folder/banana.jpg')
+        self.assertEqual(image.metadata, None)
 
         # URL
         image = Image(url='https://tineye.com/images/meloncat.jpg', collection_filepath='meloncat.jpg')
-        self.assertEquals(image.data, None)
-        self.assertEquals(image.collection_filepath, 'meloncat.jpg')
-        self.assertEquals(image.url, 'https://tineye.com/images/meloncat.jpg')
-        self.assertEquals(image.metadata, None)
+        self.assertEqual(image.data, None)
+        self.assertEqual(image.collection_filepath, 'meloncat.jpg')
+        self.assertEqual(image.url, 'https://tineye.com/images/meloncat.jpg')
+        self.assertEqual(image.metadata, None)
 
         # Not supplying any information
         try:
             image = Image()
-        except ValueError, e:
-            self.assertEquals(e.args[0], 'Image object needs either data or a URL.')
+        except ValueError as e:
+            self.assertEqual(e.args[0], 'Image object needs either data or a URL.')
+
+if __name__ == '__main__':
+    unittest.main()

@@ -1,4 +1,5 @@
-# Copyright (c) 2017 TinEye. All rights reserved worldwide.
+# -*- coding: utf-8 -*-
+# Copyright (c) 2018 TinEye. All rights reserved worldwide.
 
 import contextlib
 import os
@@ -19,8 +20,8 @@ class Image(object):
 
     Image with metadata:
 
-        >>> import simplejson
-        >>> metadata = simplejson.dumps({"keywords": ["dolphin"]})
+        >>> import json
+        >>> metadata = json.dumps({"keywords": ["dolphin"]})
         >>> image = Image(filepath='/path/to/image.jpg', metadata=metadata)
 
     """

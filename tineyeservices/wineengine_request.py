@@ -1,6 +1,7 @@
-# Copyright (c) 2017 TinEye. All rights reserved worldwide.
+# -*- coding: utf-8 -*-
+# Copyright (c) 2018 TinEye. All rights reserved worldwide.
 
-from mobileengine_request import MobileEngineRequest
+from .mobileengine_request import MobileEngineRequest
 
 
 class WineEngineRequest(MobileEngineRequest):

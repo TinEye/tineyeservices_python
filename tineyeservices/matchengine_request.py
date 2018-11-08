@@ -1,7 +1,9 @@
-# Copyright (c) 2017 TinEye. All rights reserved worldwide.
+# -*- coding: utf-8 -*-
+# Copyright (c) 2018 TinEye. All rights reserved worldwide.
 
-from image import Image
-from tineye_service_request import TinEyeServiceRequest
+import time
+from .image import Image
+from .tineye_service_request import TinEyeServiceRequest
 
 
 class MatchEngineRequest(TinEyeServiceRequest):
@@ -54,7 +56,9 @@ class MatchEngineRequest(TinEyeServiceRequest):
         for image in images:
             if not isinstance(image, Image):
                 raise TypeError('Need to pass a list of Image objects')
-            file_params['images[%i]' % counter] = (image.collection_filepath, image.data)
+            # Put dummy filename here, we are going to use the API's filepath params instead
+            file_params['images[%i]' % counter] = ('%s.%i' % (time.time(), counter), image.data)
+            params['filepaths[%i]' % counter] = image.collection_filepath
             counter += 1
 
         return self._request('add', params, file_params, **kwargs)

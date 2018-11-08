@@ -1,6 +1,7 @@
-# Copyright (c) 2017 TinEye. All rights reserved worldwide.
+# -*- coding: utf-8 -*-
+# Copyright (c) 2018 TinEye. All rights reserved worldwide.
 
-from matchengine_request import MatchEngineRequest
+from .matchengine_request import MatchEngineRequest
 
 
 class MobileEngineRequest(MatchEngineRequest):

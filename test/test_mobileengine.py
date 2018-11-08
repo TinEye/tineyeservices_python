@@ -1,9 +1,10 @@
-# Copyright (c) 2017 TinEye. All rights reserved worldwide.
+# -*- coding: utf-8 -*-
+# Copyright (c) 2018 TinEye. All rights reserved worldwide.
 
 import os
 import sys
 
-import TestMatchEngine
+from .test_matchengine import TestMatchEngine
 
 from tineyeservices import MobileEngineRequest
 from tineyeservices import Image
@@ -20,7 +21,7 @@ class TestMobileEngine(TestMatchEngine):
     """
 
     def setUp(self):
-        self.request = MobileEngineRequest(api_url='http://localhost:5000/rest/')
+        self.request = MobileEngineRequest(api_url='http://staging02.tc:5001/rest/')
         r = self.request.list(limit=1000)
         if len(r['result']) > 0:
             r = self.request.delete(r['result'])

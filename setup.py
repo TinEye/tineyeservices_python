@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-# Copyright (c) 2017 TinEye. All rights reserved worldwide.
+# Copyright (c) 2018 TinEye. All rights reserved worldwide.
 
 from setuptools import setup, find_packages
 
-version = '1.6.3'
+version = '1.6.5'
 
 setup(name='tineyeservices',
       version=version,
