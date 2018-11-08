@@ -5,7 +5,7 @@ TinEye Services API Python client
 MulticolorEngine and WineEngine APIs. MatchEngine, MobileEngine,
 MulticolorEngine and WineEngine are general image matching engines that allow
 you to perform large scale image comparisons for a variety of tasks.
-See `<http://services.tineye.com/>`_ for more information.
+See `<https://services.tineye.com/>`_ for more information.
 
 Installation
 ------------
@@ -32,7 +32,7 @@ Or you can install from the zip file:
 Documentation
 -------------
 
-View `documentation <http://services.tineye.com/library/python/docs/>`_.
+View `documentation <https://services.tineye.com/library/python/docs/>`_.
 
 Support
 -------
