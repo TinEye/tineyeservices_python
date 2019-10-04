@@ -1,3 +1,12 @@
+DEPRECATED
+==========
+
+The `TinEye Services <https://services.tineye.com/>`_ libraries will not be maintained in the future.
+The current recommended best practice is to use an HTTP
+library such as `Requests <https://2.python-requests.org/>`_.
+The `TinEye Developer Documentation <https://services.tineye.com/developers/>`_ 
+includes interactive Python code examples for all API calls to help you get started.
+
 TinEye Services API Python client
 =================================
 
